@@ -1,0 +1,21 @@
+.border-solid {
+  border: 2px solid rgba(36, 183, 131, 0.709);
+}
+.city-button{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 1ch;
+  background-color: bisque;
+}
+
+.weather-widget{
+  border: solid 1px black;
+  background-color: rgb(36, 41, 94);
+  color: aliceblue;
+  padding: 5px;
+  align-items: center;
+  text-align: center;
+  border-radius: 1ch;
+
+
+}
