@@ -14,11 +14,12 @@
   </header>
   <div class="flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-light">
     <div class="col-12 col-md-3 bg-link p-3 text-center">
-      <form class="input-text w-100">
+      <form id="search-form" class="input-text w-100">
       <h1 class="text-center ">Search for a city</h1>
         <input id="search-bar" class="w-50 mb-2">
         <button id="SearchButt" class="w-50 mb-5">Search</button>
         <div class="border-solid col-12"></div>
+        <h2 class="pt-3">Frequently searched</h2>
         <button id="Atlanta" class="w-75 mb-5 mt-5 city-button">Atlanta</button>
         <button id="Denver" class="w-75 mb-5 city-button">Denver</button>
         <button id="Seattle" class="w-75 mb-5 city-button">Seattle</button>
@@ -30,18 +31,21 @@
       </form>
     </div>
     <div class="col-12 col-md-9 p-3">
-      <h2 class="w-100 text-primary">Showing the weather for <span id="result-text"></span></h2>
-      <div id="result-content"></div>
-        <div class="col-2 col-md-2 weather-widget">hello</div>
-        <div class="col-2 col-md-2 weather-widget">Hello</div>
-        <div class="col-2 col-md-2 weather-widget">hello</div>
-        <div class="col-2 col-md-2 weather-widget">hello</div>
-        <div class="col-2 col-md-2 weather-widget">hello</div>
-        
+      <div class="w-100 border-solid">
+        <h2 class=" w-50 text-primary">Showing the weather for <span id="result-text"></span></h2>
+        <h3 id="weather-data">Hello</h3>
+
+      </div>
+      <div id="result-content" class="row">
+        <!-- <div class="col-12 col-md-2 weather-widget">hello</div>
+        <div class="col-12 col-md-2 weather-widget">Hello</div>
+        <div class="col-12 col-md-2 weather-widget">hello</div>
+        <div class="col-12 col-md-2 weather-widget">hello</div>
+        <div class="col-12 col-md-2 weather-widget">hello</div> -->
+      </div>
       
     </div>
   </div>
-  
-  
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>

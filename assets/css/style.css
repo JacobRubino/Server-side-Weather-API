@@ -6,8 +6,12 @@
   padding-bottom: 10px;
   border-radius: 1ch;
   background-color: bisque;
-}
+  font-size: 150%;
 
+}
+.city-button:active{
+  background-color: rgb(132, 103, 67);
+}
 .weather-widget{
   border: solid 1px black;
   background-color: rgb(36, 41, 94);
@@ -16,6 +20,8 @@
   align-items: center;
   text-align: center;
   border-radius: 1ch;
+  margin: auto;
+
 
 
 }
