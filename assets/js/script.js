@@ -6,6 +6,7 @@ let WAppId = "8aa8cd47805d9d880b2338a0944a512d";
 let FiveDUrl;
 let daysWeath;
 let lonOrLat;
+
 // function getFURL() {
 
 // }
@@ -16,35 +17,25 @@ function fetchWeather(search) {
     .then((data) => data)
     .catch((error) => console.log(error));
 }
-function returnLat(resultObj) {
-  resultObj.forEach((element) => {
-    console.log(element.lat)
-    return (element.lat);
-  });
-}
-function returnLon(resultObj) {
-  resultObj.forEach((element) => {
-    console.log(element)
-    return (element.lon);
-  });
-  // .then fetchWeather()
-}
+
 
 async function getLonLat(cityName) {
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   let result = await fetchWeather(geotoLatId, () => {});
-  console.log(result)
-  let lon = returnLon(result);
-  let lat = returnLat(result);
-  let FiveDUrl = `api.openweathermap.org/data/2.5/forecast?appid=${WAppId}&lat=${lat}&lon=${lon}`;
-  console.log(FiveDUrl)
+  let lon = result[0].lon;
+  let lat = result[0].lat;
+  console.log(lon)
+  console.log(lat)
+  let FiveDUrl = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WAppId}&units=imperial`;
   return FiveDUrl;
 }
 
 async function returnWeath() {
-  let lonLatUrl = getLonLat("Detroit");
-  // let weatherRes = await fetchWeather(lonLatUrl);
-  // console.log(weatherRes);
+  let lonLatUrl = await getLonLat("Detroit");
+  console.log (lonLatUrl)
+  let weatherRes = await fetchWeather(lonLatUrl, () => {});
+  let temp = weatherRes[1].temp
+  console.log(temp);
 
   // for (let index = 0; index < lonLat.length; index++) {
   //   lonOrLat[index] = lonLat[index]
