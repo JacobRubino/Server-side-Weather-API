@@ -2,14 +2,9 @@ let weatherTURL = "";
 let weatherLI = document.getElementById("result-content").children;
 let searchFormEl = document.querySelector("#search-form");
 let WAppId = "8aa8cd47805d9d880b2338a0944a512d";
-// let FiveDayURL = `api.openweathermap.org/data/2.5/forecast?appid=${WAppId}&lat=${lat}&lon=${lon}`;
 let FiveDUrl;
 let daysWeath;
 let lonOrLat;
-
-// function getFURL() {
-
-// }
 
 function fetchWeather(search) {
   return fetch(search)
@@ -19,23 +14,39 @@ function fetchWeather(search) {
 }
 
 
-async function getLonLat(cityName) {
+function getWeath(cityName) {
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
-  let result = await fetchWeather(geotoLatId, () => {});
-  let lon = result[0].lon;
-  let lat = result[0].lat;
-  console.log(lon)
-  console.log(lat)
-  let FiveDUrl = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WAppId}&units=imperial`;
-  return FiveDUrl;
+  return fetchWeather(geotoLatId)
+    .then((geoData)=>{
+
+      let lon = geoData[0].lon;
+      let lat = geoData[0].lat;
+      console.log(lon)
+      console.log(lat)
+      let FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WAppId}&units=imperial`
+      console.log(FiveDUrl)
+      return fetchWeather(FiveDUrl)
+        .then((weatherData) => {
+          console.log(weatherData.list[8].main.temp)
+          getWeath(weatherData.list)
+          return 'weatherdata.temp'
+      })
+  })
 }
 
-async function returnWeath() {
-  let lonLatUrl = await getLonLat("Detroit");
-  console.log (lonLatUrl)
-  let weatherRes = await fetchWeather(lonLatUrl, () => {});
-  let temp = weatherRes[1].temp
-  console.log(temp);
+
+getWeath('detroit')
+function returnWeath(weathData) {
+for (let index = 0; index < weathData.length; index += 8) {
+  const element = weatherData[index];
+  console.log(element)
+  }
+
+
+  
+  // let weatherRes = fetchWeather(lonLatUrl, () => {})
+  // let temp = weatherRes[1].temp
+  // console.log(temp);
 
   // for (let index = 0; index < lonLat.length; index++) {
   //   lonOrLat[index] = lonLat[index]
@@ -44,10 +55,11 @@ async function returnWeath() {
 }
 returnWeath();
 // console.log(weatherLI);
-// for (let index = 0; index < weatherLI.length; index++) {
+// for (let index = 0; index < weatherLI.length; index += 8) {
 //   const element = weatherLI[index];
 //   element.textContent = "";
 // }
+
 
 function searchSubmit(event) {
   event.preventDefault();
@@ -99,4 +111,4 @@ function printResults(resultObj) {
   resultContentEl.append(WeatherWidg);
 }
 
-searchFormEl.addEventListener("submit", returnWeath);
+// searchFormEl.addEventListener("submit", returnWeath);
