@@ -24,6 +24,7 @@ function getWeath(cityName) {
       lat = geoData[0].lat;
       console.log(lon)
       console.log(lat)
+      return {lon, lat}
         
       // console.log(FiveDUrl)
 //       return fetchWeather(FiveDUrl)
@@ -40,13 +41,16 @@ function getWeath(cityName) {
 
 function returnWeath() { 
   getWeath('detroit')
-  FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WAppId}&units=imperial`
-  fetchWeather(FiveDUrl)
-  .then((weathData) => {for (let index = 0; index < weathData.length; index += 8) {
-      const element = weatherData[index];
-      console.log(element)
-    } 
-  })
+  .then((lon,lat) => { 
+    FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WAppId}&units=imperial`
+  }).then(
+    fetchWeather(FiveDUrl))
+    .then((object) => console.log (object))
+  //     .then((weathData) => {for (let index = 0; index < weathData.length; index += 8) {
+  //       const element = weatherData[index];
+  //       console.log(element)
+  //   } 
+  // })
 
 
   
