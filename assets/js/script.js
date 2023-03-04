@@ -74,9 +74,7 @@ function printResults(resultObj) {
   let WeatherWidg = document.createElement("div");
   WeatherWidg.classList.add(
     "card",
-    "bg-primary",
-    "text-light",
-    "mb-3",
+    "weather-widget",
     "col-12",
     "col-md-2",
     "pl-2"
@@ -91,7 +89,7 @@ function printResults(resultObj) {
 
   let bodyContentEl = document.createElement("p");
   bodyContentEl.innerHTML =
-    "<strong>" + resultObj.dt_txt + "</strong>" +" <br/>";
+    "<strong>" + resultObj.dt_txt.split(" ").shift() + "</strong>" +" <br/>";
 
   if (resultObj.main.temp) {
     bodyContentEl.innerHTML +=
