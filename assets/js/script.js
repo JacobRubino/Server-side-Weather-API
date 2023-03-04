@@ -15,11 +15,10 @@ function fetchWeather(search) {
     .catch((error) => console.log(error));
 }
 
-
 function getWeath(cityName) {
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   return fetchWeather(geotoLatId).then((geoData) => {
-    console.log(geoData)
+    console.log(geoData);
     long = geoData;
     return { long };
   });
@@ -34,13 +33,13 @@ function returnWeath() {
       return FiveDUrl;
     })
     .then((LonLatURL) => {
-    fetchWeather(LonLatURL).then((object) => {
-      console.log(object)
-      console.log(object.list)
-      for (let index = 0; index < object.list.length; index += 8) {
-        const element = object.list[index].main.temp;
-        console.log(element)
-        printResults(element);
+      fetchWeather(LonLatURL).then((object) => {
+        console.log(object);
+        console.log(object.list);
+        for (let index = 0; index < object.list.length; index += 8) {
+          const element = object.list[index];
+          console.log(element);
+          printResults(element);
         }
       });
     });
@@ -73,7 +72,15 @@ function printResults(resultObj) {
 
   // set up `<div>` to hold result content
   let WeatherWidg = document.createElement("div");
-  WeatherWidg.classList.add("card", "bg-light", "text-dark", "mb-3", "p-3");
+  WeatherWidg.classList.add(
+    "card",
+    "bg-primary",
+    "text-light",
+    "mb-3",
+    "col-12",
+    "col-md-2",
+    "pl-2"
+  );
 
   let finalBody = document.createElement("div");
   finalBody.classList.add("card-body");
@@ -84,31 +91,31 @@ function printResults(resultObj) {
 
   let bodyContentEl = document.createElement("p");
   bodyContentEl.innerHTML =
-    "<strong>Date:</strong> " + resultObj.date + "<br/>";
+    "<strong>" + resultObj.dt_txt + "</strong>" +" <br/>";
 
-  if (resultObj.subject) {
+  if (resultObj.main.temp) {
     bodyContentEl.innerHTML +=
-      "<strong>Subjects:</strong> " + resultObj.subject.join(", ") + "<br/>";
+      "<strong>Temperature:</strong> " + resultObj.main.temp + "<br/>";
   } else {
     bodyContentEl.innerHTML +=
       "<strong>Subjects:</strong> No subject for this entry.";
   }
 
-  if (resultObj.description) {
+  if (resultObj.wind.speed) {
     bodyContentEl.innerHTML +=
-      "<strong>Description:</strong> " + resultObj.description[0];
+      "<strong>Wind:</strong> " + resultObj.wind.speed + "<br/>";
   } else {
     bodyContentEl.innerHTML +=
       "<strong>Description:</strong>  No description for this entry.";
   }
-
-  let linkButtonEl = document.createElement("a");
-  linkButtonEl.textContent = "Read More";
-  linkButtonEl.setAttribute("href", resultObj.url);
-  linkButtonEl.classList.add("btn", "btn-dark");
-
-  finalBody.append(titleEl, bodyContentEl, linkButtonEl);
-
+  if (resultObj.main.humidity) {
+    bodyContentEl.innerHTML +=
+      "<strong>Humidity:</strong> " + resultObj.main.humidity;
+  } else {
+    bodyContentEl.innerHTML +=
+      "<strong>Description:</strong>  No description for this entry.";
+  }
+  finalBody.append(titleEl, bodyContentEl,);
   weatherLI.append(WeatherWidg);
 }
 
