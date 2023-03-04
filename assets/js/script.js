@@ -1,12 +1,12 @@
 let weatherTURL = "";
-let weatherLI = document.getElementById("result-content").children;
+let weatherLI = document.getElementById("result-content");
 let searchFormEl = document.querySelector("#search-form");
 let WAppId = "8aa8cd47805d9d880b2338a0944a512d";
 let daysWeath;
 let lonOrLat;
-let lon;
+let long;
 let lat;
-let FiveDUrl = ''
+let FiveDUrl = "";
 
 function fetchWeather(search) {
   return fetch(search)
@@ -18,61 +18,49 @@ function fetchWeather(search) {
 
 function getWeath(cityName) {
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
-  return fetchWeather(geotoLatId)
-    .then((geoData)=>{
-      lon = geoData;
-      lat = geoData[0].lat;
-      console.log(lon)
-      console.log(lat)
-      return {lon}
-        
-      // console.log(FiveDUrl)
-//       return fetchWeather(FiveDUrl)
-//         .then((weatherData) => {
-//           console.log(weatherData.list[8].main.temp)
-//           getWeath(weatherData.list)
-//           return 'weatherdata.temp'
-//       })
-  })
+  return fetchWeather(geotoLatId).then((geoData) => {
+    console.log(geoData)
+    long = geoData;
+    return { long };
+  });
 }
 
-
-
-
-function returnWeath() { 
-  getWeath('detroit')
-  .then((lon)=> { 
-    console.log(lon[0].lon)
-    FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WAppId}&units=imperial`
-    console.log(FiveDUrl
-      )
-  }).then(
-    fetchWeather(FiveDUrl))
-    .then((object) => console.log (object))
-  //     .then((weathData) => {for (let index = 0; index < weathData.length; index += 8) {
-  //       const element = weatherData[index];
-  //       console.log(element)
-  //   } 
-  // })
-
-
-  
-  // let weatherRes = fetchWeather(lonLatUrl, () => {})
-  // let temp = weatherRes[1].temp
-  // console.log(temp);
-
-  // for (let index = 0; index < lonLat.length; index++) {
-  //   lonOrLat[index] = lonLat[index]
-  //   console.log(lonOrLat[index])
-  // }
+function returnWeath() {
+  getWeath("detroit")
+    .then((lonlat) => {
+      long = lonlat.long[0].lon;
+      lat = lonlat.long[0].lat;
+      FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${WAppId}&units=imperial`;
+      return FiveDUrl;
+    })
+    .then((LonLatURL) => {
+    fetchWeather(LonLatURL).then((object) => {
+      console.log(object)
+      console.log(object.list)
+      for (let index = 0; index < object.list.length; index += 8) {
+        const element = object.list[index].main.temp;
+        console.log(element)
+        printResults(element);
+        }
+      });
+    });
 }
+
+// let weatherRes = fetchWeather(lonLatUrl, () => {})
+// let temp = weatherRes[1].temp
+// console.log(temp);
+
+// for (let index = 0; index < lonLat.length; index++) {
+//   lonOrLat[index] = lonLat[index]
+//   console.log(lonOrLat[index])
+// }
+
 returnWeath();
 // console.log(weatherLI);
 // for (let index = 0; index < weatherLI.length; index += 8) {
 //   const element = weatherLI[index];
 //   element.textContent = "";
 // }
-
 
 function searchSubmit(event) {
   event.preventDefault();
@@ -121,7 +109,7 @@ function printResults(resultObj) {
 
   finalBody.append(titleEl, bodyContentEl, linkButtonEl);
 
-  resultContentEl.append(WeatherWidg);
+  weatherLI.append(WeatherWidg);
 }
 
 // searchFormEl.addEventListener("submit", returnWeath);
