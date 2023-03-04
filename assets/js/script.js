@@ -47,6 +47,7 @@ function getWeath(cityName) {
 }
 
 function returnWeath(input) {
+  inputName = capitalizeFirstLetter(input)
   getWeath(input)
     .then((lonlat) => {
       long = lonlat.long[0].lon;
@@ -67,7 +68,7 @@ function returnWeath(input) {
       });
     });
 }
-// returnWeath();
+// returnWeath('new haven');
 
 function PrintMainRes(resultObj){ 
    let locName = document.getElementById("result-text")
@@ -150,8 +151,11 @@ function printResults(resultObj) {
   finalBody.append(titleEl, bodyContentEl,);
   weatherLI.append(WeatherWidg);
 }
+// returnWeath('new haven')
+
 function buttInput(search){
-  inputName = capitalizeFirstLetter(search)
   returnWeath(search)
 }
+buttInput('Atlanta')
+// buttInput('new haven')
 // searchFormEl.addEventListener("submit", returnWeath);

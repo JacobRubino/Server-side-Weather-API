@@ -5,17 +5,17 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 1ch;
-  background-color: bisque;
+  background-color: rgba(176, 85, 176, 0.773);
   font-size: 150%;
 
 }
 .city-button:active{
-  background-color: rgb(132, 103, 67);
+  background-color: rgba(151, 98, 151, 0.773);
 }
 .weather-widget{
   border: solid 1px black;
   background-color: rgb(65, 71, 137);
-  color: aliceblue;
+  color: rgb(194, 214, 232);
   padding: 5px;
   align-items: center;
   text-align: center;
@@ -27,5 +27,16 @@
   font-size: 200%;
   font-weight: bold;
   color: rgb(65, 71, 137);
+
+}
+
+.bg-coll{
+  background-color: rgb(88, 145, 195);
+}
+.bg-top{
+  background-color: rgb(80, 109, 156);
+}
+.bg-main{
+  background-color: rgb(186, 204, 234);
 
 }
