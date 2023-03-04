@@ -2,11 +2,33 @@ let weatherTURL = "";
 let weatherLI = document.getElementById("result-content");
 let searchFormEl = document.querySelector("#search-form");
 let WAppId = "8aa8cd47805d9d880b2338a0944a512d";
+let FiveDUrl = "";
 let daysWeath;
 let lonOrLat;
 let long;
 let lat;
-let FiveDUrl = "";
+let CityInput;
+let inputName;
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+} //got this on stackoverflow 
+
+
+
+
+// function userInput (search){
+//   CityInput = document.getElementById("search-bar").value
+//   inputName = capitalizeFirstLetter(CityInput)
+//   console.log(inputName)
+//   if(search){
+//     returnWeath(search)
+//   }else{
+//   returnWeath(`${CityInput}`)
+//   // CityInput = 'detroit'
+//   }
+// }
+
 
 function fetchWeather(search) {
   return fetch(search)
@@ -24,19 +46,20 @@ function getWeath(cityName) {
   });
 }
 
-function returnWeath() {
-  getWeath("detroit")
+function returnWeath(input) {
+  getWeath(input)
     .then((lonlat) => {
       long = lonlat.long[0].lon;
       lat = lonlat.long[0].lat;
-      FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${WAppId}&units=imperial`;
+      FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lonlat.long[0].lat}&lon=${lonlat.long[0].lat}&appid=${WAppId}&units=imperial`;
       return FiveDUrl;
     })
     .then((LonLatURL) => {
       fetchWeather(LonLatURL).then((object) => {
         console.log(object);
         console.log(object.list);
-        for (let index = 0; index < object.list.length; index += 8) {
+        PrintMainRes(object.list[0]);
+        for (let index = 7; index < object.list.length; index += 8) {
           const element = object.list[index];
           console.log(element);
           printResults(element);
@@ -44,27 +67,38 @@ function returnWeath() {
       });
     });
 }
+// returnWeath();
 
-// let weatherRes = fetchWeather(lonLatUrl, () => {})
-// let temp = weatherRes[1].temp
-// console.log(temp);
+function PrintMainRes(resultObj){ 
+   let locName = document.getElementById("result-text")
+  locName.textContent = `${inputName}` 
+  let mainContentEl = document.createElement("p");
+  let mainBody = document.getElementById("main-weather")
+  mainContentEl.innerHTML = "<strong>" + resultObj.dt_txt.split(" ").shift() + "</strong>" +" <br/>";
 
-// for (let index = 0; index < lonLat.length; index++) {
-//   lonOrLat[index] = lonLat[index]
-//   console.log(lonOrLat[index])
-// }
+  if (resultObj.main.temp) {
+    mainContentEl.innerHTML +=
+      "<strong>Temperature:</strong> " + resultObj.main.temp + "<br/>";
+  } else {
+    mainContentEl.innerHTML +=
+      "<strong>Subjects:</strong> No subject for this entry.";
+  }
 
-returnWeath();
-// console.log(weatherLI);
-// for (let index = 0; index < weatherLI.length; index += 8) {
-//   const element = weatherLI[index];
-//   element.textContent = "";
-// }
-
-function searchSubmit(event) {
-  event.preventDefault();
-  let searchBarInput = document.querySelector("#search-bar");
-  let buttonInput = document.querySelector();
+  if (resultObj.wind.speed) {
+    mainContentEl.innerHTML +=
+      "<strong>Wind:</strong> " + resultObj.wind.speed + "<br/>";
+  } else {
+    mainContentEl.innerHTML +=
+      "<strong>Description:</strong>  No description for this entry.";
+  }
+  if (resultObj.main.humidity) {
+    mainContentEl.innerHTML +=
+      "<strong>Humidity:</strong> " + resultObj.main.humidity;
+  } else {
+    mainContentEl.innerHTML +=
+      "<strong>Weather</strong>  No Weather data for this location";
+  }
+  mainBody.append(locName, mainContentEl)
 }
 
 function printResults(resultObj) {
@@ -111,10 +145,13 @@ function printResults(resultObj) {
       "<strong>Humidity:</strong> " + resultObj.main.humidity;
   } else {
     bodyContentEl.innerHTML +=
-      "<strong>Description:</strong>  No description for this entry.";
+      "<strong>Weather</strong>  No Weather data for this location";
   }
   finalBody.append(titleEl, bodyContentEl,);
   weatherLI.append(WeatherWidg);
 }
-
+function buttInput(search){
+  inputName = capitalizeFirstLetter(search)
+  returnWeath(search)
+}
 // searchFormEl.addEventListener("submit", returnWeath);

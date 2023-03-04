@@ -22,6 +22,10 @@
   border-radius: 1ch;
   margin: auto;
 
-
+}
+#result-text{
+  font-size: 200%;
+  font-weight: bold;
+  color: rgb(65, 71, 137);
 
 }
