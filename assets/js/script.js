@@ -1,6 +1,6 @@
 let weatherTURL = "";
+let weatherHead = document.getElementById('result-text');
 let weatherLI = document.getElementById("result-content");
-let searchFormEl = document.querySelector("#search-form");
 let WAppId = "8aa8cd47805d9d880b2338a0944a512d";
 let FiveDUrl = "";
 let daysWeath;
@@ -9,26 +9,23 @@ let long;
 let lat;
 let CityInput;
 let inputName;
+let Atlanta = document.getElementById("atlanta");
+let Denver = document.getElementById("Denver");
+let Seattle = document.getElementById("Seattle");
+let SanFrancisco = document.getElementById("SanFrancisco");
+let Orlando = document.getElementById("Orlando");
+let NewYork = document.getElementById("NewYork");
+let Chicago = document.getElementById("Chicago");
+let Austin = document.getElementById("Austin");
+let citybtn = document.getElementsByClassName("city-button");
+let searchButtEL = document.getElementById('searchButt');
+let searchbarEl = document.getElementById("search-bar");
+let searchFormEl = document.getElementById("search-form");
+
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 } //got this on stackoverflow 
-
-
-
-
-// function userInput (search){
-//   CityInput = document.getElementById("search-bar").value
-//   inputName = capitalizeFirstLetter(CityInput)
-//   console.log(inputName)
-//   if(search){
-//     returnWeath(search)
-//   }else{
-//   returnWeath(`${CityInput}`)
-//   // CityInput = 'detroit'
-//   }
-// }
-
 
 function fetchWeather(search) {
   return fetch(search)
@@ -36,7 +33,6 @@ function fetchWeather(search) {
     .then((data) => data)
     .catch((error) => console.log(error));
 }
-
 function getWeath(cityName) {
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   return fetchWeather(geotoLatId).then((geoData) => {
@@ -45,8 +41,8 @@ function getWeath(cityName) {
     return { long };
   });
 }
-
 function returnWeath(input) {
+  // console.log(input)
   inputName = capitalizeFirstLetter(input)
   getWeath(input)
     .then((lonlat) => {
@@ -62,7 +58,7 @@ function returnWeath(input) {
         PrintMainRes(object.list[0]);
         for (let index = 7; index < object.list.length; index += 8) {
           const element = object.list[index];
-          console.log(element);
+          // console.log(element);
           printResults(element);
         }
       });
@@ -75,6 +71,7 @@ function PrintMainRes(resultObj){
   locName.textContent = `${inputName}` 
   let mainContentEl = document.createElement("p");
   let mainBody = document.getElementById("main-weather")
+  mainBody.innerHTML = ""
   mainContentEl.innerHTML = "<strong>" + resultObj.dt_txt.split(" ").shift() + "</strong>" +" <br/>";
 
   if (resultObj.main.temp) {
@@ -103,7 +100,7 @@ function PrintMainRes(resultObj){
 }
 
 function printResults(resultObj) {
-  console.log(resultObj);
+  // console.log(resultObj);
 
   // set up `<div>` to hold result content
   let WeatherWidg = document.createElement("div");
@@ -151,11 +148,27 @@ function printResults(resultObj) {
   finalBody.append(titleEl, bodyContentEl,);
   weatherLI.append(WeatherWidg);
 }
-// returnWeath('new haven')
 
 function buttInput(search){
   returnWeath(search)
 }
-buttInput('Atlanta')
-// buttInput('new haven')
-// searchFormEl.addEventListener("submit", returnWeath);
+
+for (let index = 0; index < citybtn.length; index++) {
+  const element = citybtn[index];
+  element.addEventListener("click", function(){
+      weatherLI.replaceChildren('')
+      cityNameButt = element.id
+      console.log(cityNameButt)
+      returnWeath(cityNameButt)  
+  })
+}
+function submitSearch(event){
+  event.preventDefault();
+  weatherLI.replaceChildren('')
+  var searchCont = searchbarEl.value
+  console.log(searchCont)
+  returnWeath(searchCont)
+}
+
+searchFormEl.addEventListener(("submit"), submitSearch)
+

@@ -1,5 +1,5 @@
 .border-solid {
-  border: 2px solid rgba(36, 183, 131, 0.709);
+  border: 3px solid rgba(10, 61, 44, 0.709);
 }
 .city-button{
   padding-top: 10px;
@@ -26,7 +26,7 @@
 #result-text{
   font-size: 200%;
   font-weight: bold;
-  color: rgb(65, 71, 137);
+  color: rgb(5, 8, 43);
 
 }
 
@@ -38,5 +38,22 @@
 }
 .bg-main{
   background-color: rgb(186, 204, 234);
+
+}
+.card-body{
+  color: rgb(23, 30, 27);
+}
+
+#search-bar{
+  border: 2px;
+  border-radius: 6px;
+}
+#search-bar:focus{
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9eed9f;
+}
+#main-weather{
+  margin: 20px 0;
 
 }

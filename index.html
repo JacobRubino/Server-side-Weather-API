@@ -9,30 +9,31 @@
   <title>WeatherAPI</title>
 </head>
 <body>
-  <header class="col-12 w-100 text-center pb-3 pt-3 bg-top">   
+  <header class="col-12 w-100 text-center pb-3 pt-3 bg-top">
     <h1>Weather Dashboard</h1>
   </header>
   <div class="flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-light">
     <div class="col-12 col-md-3 bg-coll p-3 text-center">
       <form id="search-form" class="input-text w-100">
       <h1 class="text-center ">Search for a city</h1>
-        <input type="text" id="search-bar" class="w-50 mb-2">
-        <button id="SearchButt" class="w-50 mb-5" onclick="userInput()">Search</button>
+        <input type="text" id="search-bar" role="search" class="w-80 mb-2" placeholder="Search...">
+        <button id="searchButt" class="w-50 mb-5">Search</button>
+        </form>
         <div class="border-solid col-12"></div>
         <h2 class="pt-3">Frequently searched</h2>
-        <button id="Atlanta" class="w-75 mb-5 mt-5 city-button" onclick="buttInput('Atlanta')">Atlanta</button>
-        <button id="Denver" class="w-75 mb-5 city-button" onclick="buttInput('Denver')">Denver</button>
-        <button id="Seattle" class="w-75 mb-5 city-button" onclick="buttInput('Seattle')">Seattle</button>
-        <button id="SanFrancisco" class="w-75 mb-5 city-button" onclick="buttInput('San Francisco')">San Francisco</button>
-        <button id="Orlando" class="w-75 mb-5 city-button" onclick="buttInput('Orlando')">Orlando</button>
-        <button id="NewYork" class="w-75 mb-5 city-button" onclick="buttInput('New York')">New York</button>
-        <button id="Chicago" class="w-75 mb-5 city-button" onclick="buttInput('Chicago')">Chicago</button>
-        <button id="Austin" class="w-75 mb-5 city-button" onclick="buttInput('Austin')">Austin</button>
-      </form>
+        <button id="Atlanta" class="w-75 mb-5 mt-5 city-button">Atlanta</button>
+        <button id="Denver" class="w-75 mb-5 city-button">Denver</button>
+        <button id="Seattle" class="w-75 mb-5 city-button">Seattle</button>
+        <button id="San Francisco" class="w-75 mb-5 city-button">San Francisco</button>
+        <button id="Orlando" class="w-75 mb-5 city-button">Orlando</button>
+        <button id="New York" class="w-75 mb-5 city-button">New York</button>
+        <button id="Chicago" class="w-75 mb-5 city-button">Chicago</button>
+        <button id="Austin" class="w-75 mb-5 city-button">Austin</button>
+      
     </div>
     <div class="col-12 col-md-9 p-3 bg-main">
       <div class="w-100 border-solid" id="main-weather">
-        <h2 class=" w-50 text-primary">Showing the weather for <span id="result-text"></span></h2>
+        <h2 class=" w-50 text-primary result-box" hidden><span id="result-text"></span></h2>
 
       </div>
       <div id="result-content" class="row">
