@@ -1,20 +1,20 @@
 .border-solid {
-  border: 3px solid rgba(10, 61, 44, 0.709);
+  border: 3px solid rgba(125, 151, 142, 0.709);
 }
 .city-button{
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 1ch;
-  background-color: rgba(176, 85, 176, 0.773);
+  background-color: rgba(255, 197, 255, 0.773);
   font-size: 150%;
 
 }
 .city-button:active{
-  background-color: rgba(151, 98, 151, 0.773);
+  background-color: rgba(118, 94, 118, 0.773);
 }
 .weather-widget{
   border: solid 1px black;
-  background-color: rgb(65, 71, 137);
+  background-color: rgb(109, 109, 251);
   color: rgb(194, 214, 232);
   padding: 5px;
   align-items: center;
@@ -31,10 +31,10 @@
 }
 
 .bg-coll{
-  background-color: rgb(88, 145, 195);
+  background-color: rgb(172, 212, 248);
 }
 .bg-top{
-  background-color: rgb(80, 109, 156);
+  background-color: rgb(133, 180, 255);
 }
 .bg-main{
   background-color: rgb(186, 204, 234);
