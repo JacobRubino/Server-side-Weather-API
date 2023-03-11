@@ -9,14 +9,14 @@ let long;
 let lat;
 let CityInput;
 let inputName;
-let Atlanta = document.getElementById("atlanta");
-let Denver = document.getElementById("Denver");
-let Seattle = document.getElementById("Seattle");
-let SanFrancisco = document.getElementById("SanFrancisco");
-let Orlando = document.getElementById("Orlando");
-let NewYork = document.getElementById("NewYork");
-let Chicago = document.getElementById("Chicago");
-let Austin = document.getElementById("Austin");
+// let Atlanta = document.getElementById("atlanta");
+// let Denver = document.getElementById("Denver");
+// let Seattle = document.getElementById("Seattle");
+// let SanFrancisco = document.getElementById("SanFrancisco");
+// let Orlando = document.getElementById("Orlando");
+// let NewYork = document.getElementById("NewYork");
+// let Chicago = document.getElementById("Chicago");
+// let Austin = document.getElementById("Austin");
 let citybtn = document.getElementsByClassName("city-button");
 let searchButtEL = document.getElementById('searchButt');
 let searchbarEl = document.getElementById("search-bar");
@@ -35,6 +35,7 @@ function fetchWeather(search){
 }
 
 function getWeath(cityName) {
+  console.log(cityName)
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   return fetchWeather(geotoLatId).then((geoData) => {
     // console.log(geoData);
@@ -42,6 +43,7 @@ function getWeath(cityName) {
     return { long };
   });
 }
+
 function returnWeath(input) {
   // console.log(input)
   inputName = capitalizeFirstLetter(input)
@@ -54,7 +56,7 @@ function returnWeath(input) {
     })
     .then((LonLatURL) => {
       fetchWeather(LonLatURL).then((object) => {
-        // console.log(object);
+        console.log(object);
         // console.log(object.list);
         PrintMainRes(object.list[0]);
         for (let index = 7; index < object.list.length; index += 8) {
@@ -163,20 +165,21 @@ function printResults(resultObj) {
 //   returnWeath(search)
 // }
 
-
-
 function createLocalButtons (){
   var buttCont = document.getElementById("button-container")
   buttCont.innerHTML = ""
+  reverseArr = []
   const localArr = JSON.parse(localStorage.getItem('local_search'))
-  console.log(localArr)
+  localArr.forEach(element => { reverseArr.unshift(element)
+  });
+  console.log(reverseArr, localArr)
   var newh2 = document.createElement("h2")
   newh2.className = 'pt-3'
   newh2.innerHTML = 'Frequently Searched'
   buttCont.append(newh2)
-  if (localArr != null){
-    for (let index = 0; index < localArr.length; index++) {
-      const element = localArr[index];
+  if (reverseArr != null){
+    for (let index = 0; index < reverseArr.length; index++) {
+      const element = reverseArr[index];
       var btn = document.createElement("button");
       btn.className = ' w-75 '
       btn.className += ' mb-5 '
@@ -212,9 +215,6 @@ function storeSearch (search){
   }
   createLocalButtons()
 }
-
-
-
 
 
 //   const cityStorage = {'city0' : search}
