@@ -38,20 +38,21 @@ function getWeath(cityName) {
   console.log(cityName)
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   return fetchWeather(geotoLatId).then((geoData) => {
-    // console.log(geoData);
+    console.log(geoData);
     long = geoData;
     return { long };
   });
 }
 
 function returnWeath(input) {
-  // console.log(input)
+  console.log(input)
   inputName = capitalizeFirstLetter(input)
   getWeath(input)
     .then((lonlat) => {
+      console.log (lonlat)
       long = lonlat.long[0].lon;
       lat = lonlat.long[0].lat;
-      FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lonlat.long[0].lat}&lon=${lonlat.long[0].lat}&appid=${WAppId}&units=imperial`;
+      FiveDUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lonlat.long[0].lat}&lon=${lonlat.long[0].lon}&appid=${WAppId}&units=imperial`;
       return FiveDUrl;
     })
     .then((LonLatURL) => {
