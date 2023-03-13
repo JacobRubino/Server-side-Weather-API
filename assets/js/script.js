@@ -35,7 +35,7 @@ function fetchWeather(search){
 }
 
 function getWeath(cityName) {
-  console.log(cityName)
+  // console.log(cityName)
   let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   return fetchWeather(geotoLatId).then((geoData) => {
     console.log(geoData);
@@ -45,7 +45,7 @@ function getWeath(cityName) {
 }
 
 function returnWeath(input) {
-  console.log(input)
+  // console.log(input)
   inputName = capitalizeFirstLetter(input)
   getWeath(input)
     .then((lonlat) => {
@@ -57,7 +57,7 @@ function returnWeath(input) {
     })
     .then((LonLatURL) => {
       fetchWeather(LonLatURL).then((object) => {
-        console.log(object);
+        // console.log(object);
         // console.log(object.list);
         PrintMainRes(object.list[0]);
         for (let index = 7; index < object.list.length; index += 8) {
@@ -186,7 +186,7 @@ function createLocalButtons (){
       btn.className += ' mb-5 '
       btn.className += ' city-button '
       btn.id = element
-      btn.innerText = element
+      btn.innerText = capitalizeFirstLetter(element)
       buttCont.append(btn)
   
       }
@@ -209,7 +209,8 @@ function storeSearch (search){
         } else {
           localStorage.setItem('local_search', JSON.stringify(storedCities))
       }
-    } else {console.log('this search is already stored', storedCities.includes(search), search, storedCities)}
+    } else {
+      console.log('this search is already stored', storedCities.includes(search), search, storedCities)}
   } else {
     const count = localSearch.push(search)
     localStorage.setItem('local_search', JSON.stringify(localSearch)) 
@@ -316,9 +317,9 @@ searchFormEl.addEventListener(("submit"), submitSearch)
 createLocalButtons()
 for (let index = 0; index < citybtn.length; index++) {
   const element = citybtn[index];
-  console.log(element)
+  // console.log(element)
   element.addEventListener("click", function(){
-      
+      // createLocalButtons()
       cityNameButt = element.id
       console.log(cityNameButt)
       returnWeath(cityNameButt)  
