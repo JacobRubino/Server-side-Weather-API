@@ -27,7 +27,7 @@ function fetchWeather(search){
 }
 
 function getWeath(cityName) {
-  let geotoLatId = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
+  let geotoLatId = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${WAppId}`;
   return fetchWeather(geotoLatId).then((geoData) => {
     console.log(geoData);
     long = geoData;
